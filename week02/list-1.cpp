@@ -41,33 +41,41 @@ struct List{
 			return count;
 		}
 		
-		struct iterator{
-			Node* ptr;
+		struct iterator{			
 			public:
-				iterator(Node* p=nullptr):ptr(p){}
-        
+        Node* ptr;
+				iterator(Node* p=NULL):ptr(p){}
+
         Node* operator->() const{
           return ptr;
         }
-
         // = Henry, christpher
-        iterator operator=(iterator *it){
-          return iterator(it ->ptr);
-        }
-        
+        // iterator operator=(iterator *it){
+        //   cout << "---------" << endl;    
+        //   iterator ite = iterator(it ->ptr);          
+        //   return ite;
+        // }        
+        iterator operator=(const iterator &it){          
+          //iterator ite(NULL);
+          cout << (it.ptr)->data << endl;
+          this->ptr = it.ptr;
+          // ite.ptr = it.ptr; // it.ptr = root
+          cout << "---------" << endl;
+          return *this;
+        }        
         // iterator ++, anthony, bernardo
         iterator& operator++(){
            ptr=ptr->next;
            return *this;
-        }
-        
+        }        
         bool operator==(const iterator& t){
           return t.ptr == this->ptr;
         }
 
         // !=  (bool) , Enzo, clocwise
-        bool operator!=(const iterator &it){
-          return ptr != this -> ptr;
+        bool operator!=(const iterator &it){          
+          bool isdif = (this -> ptr != it.ptr );          
+          return isdif;
         }
 
         ~iterator(){
@@ -78,17 +86,17 @@ struct List{
 
   
 		iterator begin(){
-			return iterator(root);
+			return iterator(this->root);
 		}
 
 		iterator end(){
-			return iterator(HEAD);
+			return iterator(this->HEAD);
 		}
 
 
     // void swap(){}
 
-		void print(){      
+		void print(){        
 			// Node *it;
 			// for(it=HEAD; it!=NULL; it=it->next){ it++
 			// 	cout << it->data << " ";
@@ -101,26 +109,30 @@ struct List{
     }
 
     void remove(int idx){
-      // Node *it;
+      // Node *it;      
       iterator it;
-      Node **aux;
-      for(it=this->begin(); it!=this->end(); ++it ){
-        if(it->id == idx){ // it->next->id == idx
-          if(it == this->begin()){ 
-            this->begin() = it->next;
-          }
-          else if(it==this->end()){
-            (*aux)->next = it->next;
-          }
-          else{
-            (*aux)->next = it->next;
-            this->end() = *aux;
-          }
-          cout << "found" << endl;
-          // delete it; // ERROR
-        }
-      }
+      Node **aux = NULL;
       
+      it=this->begin();
+
+      // for(; it!=this->end(); ++it ){
+      //   if(it->id == idx){ // it->next->id == idx        
+      //     if(it == this->begin()){ 
+      //       this->begin() = it->next;
+      //     }
+      //     else if(it==this->end()){
+      //       (*aux)->next = it->next;
+      //     }
+      //     else{            
+      //       (*aux)->next = it->next;
+      //       this->end() = *aux;
+      //     }
+      //     cout << "found" << endl;
+      //     // delete it; // ERROR
+      //   }
+      // }      
+
+
       // for(it=HEAD, (aux)=&it; it!=NULL; it=it->next){        
 			// 	cout << "h->" << (*aux)->data << "," << it->data << endl;
       //   if(it->id == idx){
@@ -159,5 +171,6 @@ int main() {
   l.append(5);
   l.print();
   l.remove(1);
-  l.print();
+ // l.print();
+  return 0;
 }
