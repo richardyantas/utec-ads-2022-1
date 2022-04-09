@@ -45,7 +45,6 @@ struct List{
 			public:
         Node* ptr;
 				iterator(Node* p=NULL):ptr(p){}
-
         Node* operator->() const{
           return ptr;
         }
@@ -55,14 +54,18 @@ struct List{
         //   iterator ite = iterator(it ->ptr);          
         //   return ite;
         // }        
-        iterator operator=(const iterator &it){          
+
+        iterator operator=(const iterator &it){
           //iterator ite(NULL);
           cout << (it.ptr)->data << endl;
           this->ptr = it.ptr;
-          // ite.ptr = it.ptr; // it.ptr = root
-          cout << "---------" << endl;
-          return *this;
+          cout << "data: " << (this->ptr) << endl;
+          // ite.ptr = it.ptr; // it.ptr = root          
+          //return *this;
+          return iterator(NULL);
         }        
+
+
         // iterator ++, anthony, bernardo
         iterator& operator++(){
            ptr=ptr->next;
@@ -170,7 +173,11 @@ int main() {
   l.append(8);
   l.append(5);
   l.print();
-  l.remove(1);
+ //l.remove(1);
  // l.print();
+  int a;
+  int* A = NULL;
+  int* B = &a;
+  B = A;
   return 0;
 }
