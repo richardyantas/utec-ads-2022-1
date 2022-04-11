@@ -13,12 +13,11 @@ struct Node{
         int data;
         Node *next;
         int id;
-
         Node(int data, int id, Node *next){
             this->data = data;
             this->id = id;
             this->next = next;
-        }
+        }        
 };
 
 struct List{
@@ -28,17 +27,18 @@ struct List{
     public:
         List(){};
         void append(int data){
-            Node *temp;
+            Node *temp;            
             temp = new Node(data, 0, NULL);
-            ROOT->next = temp;
-            ROOT = temp;
-            countList ++;
-
-            Node *it = HEAD;
-            for(int X = countList; X >= 0; X--){
-                it->id = X;
-                it = it->next;
-            }
+            cout << "-------" << endl;
+            ROOT->next = NULL;//temp;  // PRIMERO TIENE QUE ROOT APUNTAR A UN NODE PARA LUEGO APLICAR NEXT
+            cout << "-------" << endl;
+            // ROOT = temp;            
+            // countList ++;
+            // Node *it = HEAD;
+            // for(int X = countList; X >= 0; X--){                
+            //     it->id = X;
+            //     it = it->next;
+            // }
         }
 
         void addfront(int data){

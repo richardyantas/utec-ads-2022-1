@@ -12,27 +12,54 @@ struct Node{
 		  this->next = next;
       this->id = id;
     }
-	void print(){
-		cout << "address: " << this << " data: " << this->data << ", next:" << this->next << endl;
-	}
+	// void print(){
+	// 	cout << "address: " << this << " data: " << this->data << ", next:" << this->next << endl;
+	// }
+};
+
+struct iterator{
+  public:
+    Node* ptr;
+    iterator(Node* p=NULL):ptr(p){}
+    Node* operator->() const{
+      
+      return ptr;
+    }
+    iterator operator=(const iterator &it){      
+      cout << (it.ptr)->data << endl;
+      this->ptr = it.ptr;
+      cout << "data: " << (this->ptr) << endl;     
+      return iterator(NULL);
+    }            
+    iterator& operator++(){
+      ptr=ptr->next;
+      return *this;
+    }        
+    bool operator==(const iterator& t){
+      return t.ptr == this->ptr;
+    }    
+    bool operator!=(const iterator &it){          
+      bool isdif = (this -> ptr != it.ptr );          
+      return isdif;
+    }
 };
 
 struct List{
 	public:
   Node **head_ref;
 	Node *HEAD;
-  Node *root;
+  Node *ROOT;
 	int count = 0;	
 		List(){};	
 		void addfront(int data){
 			if(count == 0){
 				HEAD = new Node(data, NULL, count);	
-        root = HEAD;
+        ROOT = HEAD;
 			}
 			else
 				HEAD = new Node(data, HEAD, count);
 			count++;
-			HEAD->print();
+			// HEAD->print();
 		}
 		int size(){
 			return count;
@@ -40,17 +67,16 @@ struct List{
 
     void append(int data){      
       Node* new_node = new Node(data,NULL,++count);
-      root->next = new_node;
-      root = new_node;
+      ROOT->next = new_node;
+      ROOT = new_node;
     }
     
-
 		void print(){      
-			// Node *it;
-			// for(it=HEAD; it!=NULL; it=it->next){ it++
-			// 	cout << it->data << " ";
-			// }
-			// cout << endl;
+			Node *it;
+			for(it=HEAD; it!=NULL; it=it->next){
+				cout << it->data << " ";
+			}
+			cout << endl;
 		}	
 
     int Size(){
@@ -58,26 +84,25 @@ struct List{
     }
 
     
-    void remove(int idx){
-      // head_ref = &HEAD;
-      // Node* temp = *head_ref;
+    void remove(int idx){      
       Node* temp = HEAD;
       for(; temp!=NULL; temp=temp->next){
-        if(temp->id == idx && temp==HEAD){
+        if(temp==HEAD && temp->id == idx){
+          HEAD = temp->next;
           delete temp;
-        }
-        else if(temp->id == idx && temp==root){
-          delete temp;
-        }
-        else if(temp->next->id == idx){        
-          temp->next = temp->next->next
-          (*aux)->next = it->next;                       
-          delete it;
           break;
         }        
-        it->id -= 1;
-        aux = &it;
-		  // }
+        if(temp->next->id == idx){          
+          if(temp->next == ROOT){
+            ROOT = temp;
+          }
+          Node *aux = temp->next->next;
+          delete temp->next;
+          temp->next = aux;          
+          break;
+        }        
+        temp->id -= 1;       
+      }		  
     }
 };
 
@@ -89,6 +114,9 @@ int main() {
   l.addfront(8);
   l.addfront(5);
   l.print();
-  l.remove(1);
+  l.remove(3);
+  l.addfront(1);
+  l.addfront(100);
   l.print();
+  l.append(40);
 }
