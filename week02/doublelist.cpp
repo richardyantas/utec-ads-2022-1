@@ -27,11 +27,14 @@ struct List{
 			if(count == 0){
 				HEAD = new Node(data, NULL, NULL, count);	
         ROOT = HEAD;
-			}
-			else
-				HEAD = new Node(data, HEAD, NULL, count);
-			count++;
-			// HEAD->print();
+			}      
+			else{
+        Node *aux = new Node(data, NULL, NULL, count);
+        HEAD->prev = aux;
+        aux->next = HEAD;
+        HEAD = aux;
+      }
+			count++;			
 		}
 		int size(){
 			return count;
@@ -48,9 +51,10 @@ struct List{
 			for(it=HEAD; it!=NULL; it=it->next){
 				cout << it->data << " ";
 			}
-      for(it=ROOT; it!=NULL; it=it->prev){
-				cout << it->data << " ";
-			}
+      cout << endl;
+      // for(it=ROOT; it!=NULL; it=it->prev){
+			// 	cout << it->data << " ";
+			// }
 			cout << endl;
 		}	
 
@@ -63,15 +67,18 @@ struct List{
       Node* temp = HEAD;
       for(; temp!=NULL; temp=temp->next){
         if(temp->id==idx){          
-          Node *a = temp->prev,*b=temp->next;
-          a->next = b;
-          b->prev = a;
+          Node *a = temp->prev,*b=temp->next;          
           if(temp == HEAD){
-            HEAD = b;   
+            HEAD = b;               
           }
-          if(temp == ROOT){
+          else if(temp == ROOT){
             ROOT = a;
           }
+          else {
+            a->next = b;
+            b->prev = a;
+          }
+
           delete temp;
           break;
         }        
@@ -92,6 +99,7 @@ int main() {
   l.addfront(1);
   l.addfront(100);
   l.print();
-  l.append(40);
-  l.print();
+
+  // l.append(40);
+  // l.print();
 }
