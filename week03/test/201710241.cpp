@@ -30,7 +30,7 @@ struct List{
             Node *temp;            
             temp = new Node(data, 0, NULL);
             cout << "-------" << endl;
-            ROOT->next = NULL;//temp;  // PRIMERO TIENE QUE ROOT APUNTAR A UN NODE PARA LUEGO APLICAR NEXT
+            ROOT->next = temp;  // PRIMERO TIENE QUE ROOT APUNTAR A UN NODE PARA LUEGO APLICAR NEXT
             cout << "-------" << endl;
             // ROOT = temp;            
             // countList ++;

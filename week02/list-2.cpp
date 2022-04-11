@@ -84,7 +84,7 @@ struct List{
     }
 
     
-    void remove(int idx){      
+    void remove(int idx){
       Node* temp = HEAD;
       for(; temp!=NULL; temp=temp->next){
         if(temp==HEAD && temp->id == idx){
@@ -114,9 +114,11 @@ int main() {
   l.addfront(8);
   l.addfront(5);
   l.print();
+  
   l.remove(3);
   l.addfront(1);
   l.addfront(100);
   l.print();
   l.append(40);
+  l.print();
 }
