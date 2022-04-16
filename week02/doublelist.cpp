@@ -40,7 +40,8 @@ struct List{
 			return count;
 		}
 
-    void append(int data){      
+    void append(int data){  
+      // para un solo nodo agregar    
       Node* new_node = new Node(data, NULL, ROOT, ++count);
       ROOT->next = new_node;
       ROOT = new_node;
