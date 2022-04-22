@@ -1,8 +1,9 @@
 .vscode
 .ipynb_checkpoints
+**/.ipynb_checkpoints
+
 /week01/a.out
 /week03/
-/week05/
 /week06/
 /week07/
 /week08/
