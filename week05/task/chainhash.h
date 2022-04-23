@@ -2,7 +2,6 @@
 #include <list>
 
 using namespace std;
-
 const int maxColision = 3;
 const float maxFillFactor = 0.5;
 
@@ -10,20 +9,25 @@ template<typename TK, typename TV>
 class ChainHash
 {
 private:    
-    struct Entry{
+  struct Entry{
 		TK key;
 		TV value;
-		size_t hashcode;		
+		size_t hashcode;
+		Entry(TK _key, TV _value, size_t _hashcode){
+        key = _key;
+        value = _value;
+				hashcode = _hashcode;
+    }
 	} 
-	list<Entry> *array;
-	int capacity;//tamanio del array
+	list<Entry> *arr;
+	int capacity;//tamanio del arr
   int size;//cantidad de elementos totales
 
 public:
     ChainHash(){
-		// TODO: asignar un tamanio inicial al array
+		// TODO: asignar un tamanio inicial al arr
 		capacity = 10; 
-		array = new list<Entry>[capacity];
+		arr = new list<Entry>[capacity];
 		size = 0;
 	}
 
@@ -32,12 +36,33 @@ public:
 		size_t hashcode = getHashCode(key);
 		int index = hashcode % capacity;
 		//TODO: insertar el Entry(key, value) en index, manejando colisiones
-		array[index].push_back(Entry(key, value));
+		arr[index].push_back(Entry(key, value));
+		size++;
 	}
 
-	TV get(TK key);
+	TV get(TK key){
+		int index = getHashCode(key);
+		while (head=)
+		return arr[index];
+		
+	}
+			
 
-	void remove(TK key);
+
+	void remove(TK key){
+		TV value;
+		int Pos_Delete;
+		size_t hashcode = getHashCode(key);
+		int index = hashcode % capacity;
+		Entry index_it = arr[index].begin();
+		for (int i; i < arr[index].size(); i++){
+			if(key == index_it.key)
+				Pos_Delete = i;
+			else
+				advance(index_it,1);
+		}
+		arr[index].erase(Pos_Delete)
+	}
 
 	//TODO: implementar el operador corchete [ ]
 
@@ -51,5 +76,18 @@ private:
 		return ptr_hash(key);
 	}
 
-	void rehashing();	
+	void rehashing(){
+		// closets x2 prime 		
+		new_capacity = capacity*2
+		// arr = new list<Entry>[capacity-new_capacity];
+		new_arr = new list<Entry>[new_capacity];
+		// update index
+		list<Entry>::iterator it;
+		for(it=arr.begin();it!=arr.end();++it){
+			new_index = it->hashcode % new_capacity;
+			new_arr[new_index].push_front(Entry(it->key, it->value, it->hashcode))
+		}
+		delete arr;
+		arr = new_array;
+	};
 };
