@@ -10,7 +10,7 @@ class ChainHash
 {
 private:    
   struct Entry{
-		TK key;
+		TK key;		
 		TV value;
 		size_t hashcode;
 		Entry(TK _key, TV _value, size_t _hashcode){
@@ -18,7 +18,7 @@ private:
         value = _value;
 				hashcode = _hashcode;
     }
-	} 
+	};
 	list<Entry> *arr;
 	int capacity;//tamanio del arr
   int size;//cantidad de elementos totales
@@ -26,7 +26,7 @@ private:
 public:
     ChainHash(){
 		// TODO: asignar un tamanio inicial al arr
-		capacity = 10; 
+		capacity = 10;
 		arr = new list<Entry>[capacity];
 		size = 0;
 	}
@@ -36,33 +36,48 @@ public:
 		size_t hashcode = getHashCode(key);
 		int index = hashcode % capacity;
 		//TODO: insertar el Entry(key, value) en index, manejando colisiones
-		arr[index].push_back(Entry(key, value));
+		arr[index].push_back(Entry(key, value, hashcode));
 		size++;
 	}
 
 	TV get(TK key){
 		int index = getHashCode(key);
-		while (head=)
+		//while (head=)
 		return arr[index];
-		
 	}
 			
-
-
 	void remove(TK key){
-		TV value;
-		int Pos_Delete;
-		size_t hashcode = getHashCode(key);
-		int index = hashcode % capacity;
-		Entry index_it = arr[index].begin();
-		for (int i; i < arr[index].size(); i++){
-			if(key == index_it.key)
-				Pos_Delete = i;
-			else
-				advance(index_it,1);
-		}
-		arr[index].erase(Pos_Delete)
+		// TV value;
+		// int Pos_Delete;
+		// size_t hashcode = getHashCode(key);
+		// int index = hashcode % capacity;
+		// Entry index_it = arr[index].begin();
+		// for (int i; i < arr[index].size(); i++){
+		// 	if(key == index_it.key)
+		// 		Pos_Delete = i;
+		// 	else
+		// 		advance(index_it,1);
+		// }
+		// arr[index].erase(Pos_Delete);
 	}
+
+	auto begin(int index){
+		return arr[index].begin();
+	}
+
+	auto end(int index){
+		return arr[index].end();
+	}
+
+	unsigned int bucket_count(){
+		return size;		
+	}
+
+	unsigned int bucket_size(int i){
+		return arr[i].size();
+  }
+
+
 
 	//TODO: implementar el operador corchete [ ]
 
@@ -78,16 +93,16 @@ private:
 
 	void rehashing(){
 		// closets x2 prime 		
-		new_capacity = capacity*2
-		// arr = new list<Entry>[capacity-new_capacity];
-		new_arr = new list<Entry>[new_capacity];
-		// update index
-		list<Entry>::iterator it;
-		for(it=arr.begin();it!=arr.end();++it){
-			new_index = it->hashcode % new_capacity;
-			new_arr[new_index].push_front(Entry(it->key, it->value, it->hashcode))
-		}
-		delete arr;
-		arr = new_array;
+		// new_capacity = capacity*2
+		// // arr = new list<Entry>[capacity-new_capacity];
+		// new_arr = new list<Entry>[new_capacity];
+		// // update index
+		// list<Entry>::iterator it;
+		// for(it=arr.begin();it!=arr.end();++it){
+		// 	new_index = it->hashcode % new_capacity;
+		// 	new_arr[new_index].push_front(Entry(it->key, it->value, it->hashcode))
+		// }
+		// delete arr;
+		// arr = new_array;
 	};
 };

@@ -16,17 +16,15 @@ int main()
   vector<pair<string, string>> data = loadCSV("smalldata.csv");
   //unordered_map<string, string> hash; //reeamplazar por su propia implementacion de hash
   ChainHash<string, string> hash;
-  
   for (size_t i = 0; i < data.size(); i++)
     hash.set(data[i].first, data[i].second);   
-  
   cout << "Size of Hash Table: " << hash.bucket_count() << endl;
-  
   for (unsigned i = 0; i < hash.bucket_count(); ++i)
   {
     cout << "bucket #" << i << " contains " << hash.bucket_size(i) << " elements: ";    
     for (auto it = hash.begin(i); it != hash.end(i); ++it)    
-      cout << std::flush << it->first << " -> ";
+      // cout << std::flush << it->first << " -> ";
+      cout << std::flush << it->key << " -> ";
     cout << std::flush<< "\n";
   }  
 }
@@ -55,3 +53,4 @@ vector<pair<string, string>> loadCSV(string file)
   }
   return data;
 }
+
