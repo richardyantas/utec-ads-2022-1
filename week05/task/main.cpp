@@ -27,6 +27,9 @@ int main()
       cout << std::flush << it->key << " -> ";
     cout << std::flush<< "\n";
   }  
+
+  cout << hash.get("MICKELSON LORENE P") << endl;
+  //cout << hash["MICKELSON LORENE P"] << endl;
 }
 
 vector<pair<string, string>> loadCSV(string file)

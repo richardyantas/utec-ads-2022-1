@@ -41,9 +41,26 @@ public:
 	}
 
 	TV get(TK key){
-		int index = getHashCode(key);
-		//while (head=)
-		return arr[index];
+		int index = getHashCode(key)%capacity;
+		for(it=arr[index]->begin(); it!=arr[index]->end; ++it){
+			if(it->key  == key ){
+				return it->value;	
+			}
+		}
+
+		// list<Entry<string, string>>::iterator  it;		
+		// for(it=arr[index]->begin(); it!=arr[index]->end; ++it){
+		// 	if(it->key  == key ){
+		// 		return it->value;	
+		// 	}
+		// }
+
+		// for (int i=0; i<arr[index].size(); i++){
+		// 	if(arr[index][i].key  == key ){
+		// 		return arr[index][i].value;
+		// 	}
+		// }
+		cout << "key is not in the hash table" << endl;		
 	}
 			
 	void remove(TK key){
@@ -70,7 +87,7 @@ public:
 	}
 
 	unsigned int bucket_count(){
-		return size;		
+		return capacity;	// size
 	}
 
 	unsigned int bucket_size(int i){
