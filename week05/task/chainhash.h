@@ -1,3 +1,5 @@
+// https://stackoverflow.com/questions/19732319/difference-between-size-t-and-unsigned-int
+
 #include <vector>
 #include <list>
 
@@ -36,34 +38,36 @@ public:
 		size_t hashcode = getHashCode(key);
 		int index = hashcode % capacity;
 		//TODO: insertar el Entry(key, value) en index, manejando colisiones
+		for(auto it=arr[index].begin(); it!=arr[index].end();it++){
+			if(it->key==key){
+				it->value=value;
+				return;
+			}
+		}
 		arr[index].push_back(Entry(key, value, hashcode));
 		size++;
 	}
 
 	TV get(TK key){
 		int index = getHashCode(key)%capacity;
-		for(it=arr[index]->begin(); it!=arr[index]->end; ++it){
+		// list<Entry>::iterator  // before
+		typename list<Entry>::iterator it=arr[index].begin();  // add typename or use just "auto" for C++11  
+		for(; it!=arr[index].end(); ++it){
 			if(it->key  == key ){
-				return it->value;	
+				return it->value;
 			}
-		}
-
-		// list<Entry<string, string>>::iterator  it;		
-		// for(it=arr[index]->begin(); it!=arr[index]->end; ++it){
-		// 	if(it->key  == key ){
-		// 		return it->value;	
-		// 	}
-		// }
-
-		// for (int i=0; i<arr[index].size(); i++){
-		// 	if(arr[index][i].key  == key ){
-		// 		return arr[index][i].value;
-		// 	}
-		// }
+		}		
 		cout << "key is not in the hash table" << endl;		
 	}
 			
 	void remove(TK key){
+		int index = getHashCode(key) % capacity;	
+		for(auto it=arr[index].begin(); it!=arr[index].end();it++){
+			if(it->key==key){
+				arr[index].clear();
+				return;
+			}
+		}
 		// TV value;
 		// int Pos_Delete;
 		// size_t hashcode = getHashCode(key);
@@ -94,8 +98,6 @@ public:
 		return arr[i].size();
   }
 
-
-
 	//TODO: implementar el operador corchete [ ]
 
 private:
@@ -108,18 +110,15 @@ private:
 		return ptr_hash(key);
 	}
 
-	void rehashing(){
-		// closets x2 prime 		
-		// new_capacity = capacity*2
-		// // arr = new list<Entry>[capacity-new_capacity];
-		// new_arr = new list<Entry>[new_capacity];
-		// // update index
-		// list<Entry>::iterator it;
-		// for(it=arr.begin();it!=arr.end();++it){
-		// 	new_index = it->hashcode % new_capacity;
-		// 	new_arr[new_index].push_front(Entry(it->key, it->value, it->hashcode))
-		// }
-		// delete arr;
-		// arr = new_array;
+	void rehashing(){		
+		capacity = capacity*2;
+		new_arr = new list<Entry>[capacity];
+		for(auto it=arr.begin();it!=arr.end();++it){
+			new_index = it->hashcode % capacity;
+			new_arr[new_index].push_front(Entry(it->key, it->value, it->hashcode))
+		}
+		delete arr;
+		arr = new_array;
 	};
+
 };

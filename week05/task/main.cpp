@@ -27,7 +27,7 @@ int main()
       cout << std::flush << it->key << " -> ";
     cout << std::flush<< "\n";
   }  
-
+  cout << "***************** results **************** " << endl;
   cout << hash.get("MICKELSON LORENE P") << endl;
   //cout << hash["MICKELSON LORENE P"] << endl;
 }
