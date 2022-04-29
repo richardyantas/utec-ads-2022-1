@@ -10,7 +10,7 @@ class BTree
 {
 private:
     Node<TK> *root;   
-    int M;//grado u orden del arbol
+    int M;//grado u orden del arbol 
 
 public:
     BTree(int _M) : M(_M), root(nullptr) {}

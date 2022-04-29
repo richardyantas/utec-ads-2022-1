@@ -111,14 +111,18 @@ private:
 	}
 
 	void rehashing(){		
+		int last_capacity = capacity;
 		capacity = capacity*2;
-		new_arr = new list<Entry>[capacity];
-		for(auto it=arr.begin();it!=arr.end();++it){
-			new_index = it->hashcode % capacity;
-			new_arr[new_index].push_front(Entry(it->key, it->value, it->hashcode))
-		}
+		list<Entry> *new_arr = new list<Entry>[capacity];
+		for (unsigned i = 0; i < last_capacity; ++i)
+		{		
+			for (auto it = arr[i].begin(); it != arr[i].end(); ++it){
+				int new_index = it->hashcode % capacity;
+				new_arr[new_index].push_front(Entry(it->key, it->value, it->hashcode));
+			}		
+		}  
 		delete arr;
-		arr = new_array;
+		arr = new_arr;
 	};
 
 };
