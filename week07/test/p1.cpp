@@ -1,4 +1,3 @@
-
 #include<iostream>
 #include<queue>
 #include<utility>
@@ -45,7 +44,7 @@ bool isBalanced(Node* root){
     Node* n = q.front().first;
     cont = q.front().second;
     q.pop();
-    cont++;    
+    cont++;
     cout << "------------" << endl;
     if (n->left == NULL && n->right == NULL){      
       d.push_back(make_pair(n, cont));
