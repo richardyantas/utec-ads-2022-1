@@ -4,29 +4,29 @@
 #include<queue>
 using namespace std;
 
-void prim(vector<vector<int>> G){
-  int inode = 0;
-  priority_queue<pair<int,int>> pq;
-  for(int i=0;i<G[inode].size();i++){
-    pq.push(make_pair(-G[inode][i],i));
-  }  
-  while(!pq.empty()){
-    int node = pq.top();
-    pq.pop();
+// void prim(vector<vector<int>> G){
+//   int inode = 0;
+//   priority_queue<pair<int,int>> pq;
+//   for(int i=0;i<G[inode].size();i++){
+//     pq.push(make_pair(-G[inode][i],i));
+//   }  
+//   while(!pq.empty()){
+//     int node = pq.top();
+//     pq.pop();
     
-  }
+//   }
 
 
-  // for(int i=0; i<G[inode].size();i++){
+//   // for(int i=0; i<G[inode].size();i++){
 
-  // }
+//   // }
 
-}
+// }
 
 
-void kruskal(){
+// void kruskal(){
 
-}
+// }
 
 vector<vector<int>> build_graph(bool isdirected){
   int V = 6;
