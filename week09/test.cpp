@@ -1,33 +1,46 @@
 #include<iostream>
-#include<vector>
 using namespace std;
 
 
-void func(vector<int> *p, int N){
-
-}
-
-void func2(vector<int> G[3]){
-
-}
-
+// class A{
+//     protected:
+//     int data=7;
+//     public:
+//     virtual void print() = 0;
+// };
 
 
-void func3(const vector<vector<int>> &G){
+// class B : public A{
+//     void print(){
+//         cout << data << endl;
+//     }
+// };
 
-}
 
-void func4(vector<vector<int>> *p){
+template<typename T>
+class A{
+    protected:    
+    public:
+    //T data;
+    T data = 5;
+    virtual void print() = 0;
+};
 
-}
-
+template<typename T>
+class B : public A<T>{
+    public:    
+    void print(){
+        cout << A<int>::data << endl;
+    }
+};
 
 int main(){
-  vector<int> G[3];
-  G[0].push_back(1);
-
-
-  vector<vector<int>> G(3);
-  G[0].push_back(1);
+  B<int> b;
+  A<int> *a = &b;
+  a->print();
+  // B b;
+  // A *a = &b;
+  // a->print();  
   return 0;
 }
+
