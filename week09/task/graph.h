@@ -56,9 +56,9 @@ template <typename TV, typename TE> class Graph {
     virtual void display(string tag) = 0;
 
     virtual void prim(string tag) = 0;
-    virtual void kruskal(string tag) = 0;
-    virtual void dijkstra(string tag) = 0;
-    virtual void astar(string tag) = 0;
+    // virtual void kruskal(string tag) = 0;
+    // virtual void dijkstra(string tag) = 0;
+    // virtual void astar(string tag) = 0;
 };
 
 #endif

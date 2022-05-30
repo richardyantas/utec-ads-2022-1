@@ -1,8 +1,10 @@
 #ifndef UNDIRECTEDGRAPH_H
 #define UNDIRECTEDGRAPH_H
+
 #include "graph.h"
 #include <cstring>
 #include <iostream>
+#include <queue>
 
 // using namespace std;
 
@@ -48,43 +50,25 @@ class UnDirectedGraph : public Graph<TV, TE> {
 
     void prim(string tag) {
         tag = "A";
-        priority_queue<pair<int, int>> pq; // check >> problem clang
-        pq.push(make_pair(0, tag);
+        priority_queue<pair<int, string>> pq; // check >> problem clang
+        pq.push(make_pair(0, tag));
         Graph<TV, TE>::vertexes[tag]->visited = true;
-        vector<Edge<TV,TE>> tree;
-        while (!pq.empty) {
-            pair<int, int> par = q.top();
-            q.pop();
+        vector<Edge<TV, TE> *> tree;
+        while (!pq.empty()) {
+            pair<int, string> par = pq.top();
+            pq.pop();
             tag = par.second;
             for (auto it = Graph<TV, TE>::vertexes[tag]->edges.begin();
                  it != Graph<TV, TE>::vertexes[tag]->edges.end(); ++it) {
                 if (!(*it)->vertexes[1]->visited) {
                     pq.push(
-                    make_pair(-(*it)->weight, (*it)->vertexes[1]->tag);
+                        make_pair(-((*it)->weight), (*it)->vertexes[1]->tag));
                     (*it)->vertexes[1]->visited = true;
                     tree.push_back((*it));
                 }
             }
         }
-    };
-
-        // template <typename TV, typename TE>
-        // void UnDirectedGraph<TV, TE>::prim(string tag) {
-        //     tag = "A";
-        //     priority_queue<pair<int, int>> pq; // check >> problem clang
-        //     // auto it = Graph<TV, TE>::vertexes[tag];
-        //     pq.push(make_pair(Graph<TV, TE>::vertexes[tag]->data, 0));
-
-        //     for (auto it = Graph<TV, TE>::vertexes[tag]->edges.begin();
-        //          it != Graph<TV, TE>::vertexes[tag]->edges.end(); ++it) {
-
-        //         pq.push(make_pair((*it)->vertexes[1]->,
-        //         (*it)->vertexes[1]->data));
-
-        //         // cout << delim << "(" << (*it)->vertexes[1]->data << ", "
-        //         //      << (*it)->weight << ")";
-        //         // delim = ",";
-        //     }
-        // }
+    }
+};
 
 #endif

@@ -36,9 +36,7 @@ int main(int argc, char *argv[]) {
     p->createEdge("B", "C", 1);
     p->createEdge("A", "C", 1);
 
-    string ni;
-    cin >> ni;
-    p->display(ni);
-    // p->prim("A");
+    p->display("A");
+    p->prim("A");
     return 0;
 }
