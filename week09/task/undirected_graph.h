@@ -49,7 +49,6 @@ class UnDirectedGraph : public Graph<TV, TE> {
     };
 
     void prim(string tag) {
-        tag = "A";
         priority_queue<pair<int, string>> pq; // check >> problem clang
         pq.push(make_pair(0, tag));
         Graph<TV, TE>::vertexes[tag]->visited = true;
