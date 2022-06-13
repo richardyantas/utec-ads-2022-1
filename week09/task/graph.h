@@ -7,9 +7,9 @@
 
 using namespace std;
 
-template <typename TV, typename TE> struct Edge;
-
 template <typename TV, typename TE> struct Vertex;
+
+template <typename TV, typename TE> struct Edge;
 
 template <typename TV, typename TE> class Graph;
 
@@ -37,7 +37,6 @@ template <typename TV, typename TE> class Graph {
   protected:
     // map <id, vertex>
     std::unordered_map<string, Vertex<TV, TE> *> vertexes;
-
   public:
     virtual bool insertVertex(string id, TV vertex) = 0;
     virtual bool createEdge(string id1, string id2, TE w) = 0;

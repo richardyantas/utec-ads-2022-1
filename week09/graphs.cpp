@@ -68,6 +68,7 @@ bool isCycleFound(int s) {
         st.pop();
         for (auto u : G[s]) {
             ans[u] = s;
+
             if (visited[u] && ans[s] != u) {
                 return true;
             }
