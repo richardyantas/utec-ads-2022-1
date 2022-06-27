@@ -32,8 +32,10 @@ template <class T> class ListSparseMatrix : public SparseMatrix<T> {
   public:
     ListSparseMatrix(){};
     ListSparseMatrix(unsigned rows, unsigned columns) {
-        X.resize(rows);
-        Y.resize(columns);
+        // X.resize(rows);
+        // Y.resize(columns);
+        X.assign(rows, nullptr);
+        Y.assign(columns, nullptr);
     };
     ~ListSparseMatrix() {
         X.clear();
@@ -42,25 +44,47 @@ template <class T> class ListSparseMatrix : public SparseMatrix<T> {
 
     bool set(unsigned posX, unsigned posY, T data) {
         Node<T> *p = new Node<T>(posX, posY, data);
-        if (posY == 0) {
-            // delete X[posX];
+        Node<T> *it;
+        int ref;
+
+        // if element posX, posY exists then just change the data using get
+        // method
+
+        // if (get(posX, posY)) then change the data.
+
+        // otherwise execute the down code
+
+        if (X[posX] == nullptr && Y[posY] == nullptr) {
             X[posX] = p;
-        }
-        if (posX == 0) {
-            // delete Y[posY];
             Y[posY] = p;
         }
-        if (posX != 0 && posY != 0) {
-
-            Node<T> *it = X[posX];
-            while (it != nullptr) {
+        // x = 6 - y = 4
+        if (X[posX] != nullptr && Y[posY] == nullptr) {
+            it = X[posX];
+            while (it->posY < posY) {
+                it = it->next;
+            }
+            it->next = p;
+            Y[posY] = p;
+        }
+        if (X[posX] == nullptr && Y[posY] != nullptr) {
+            it = Y[posY];
+            while (it->posX < posX) {
+                it = it->down;
+            }
+            it->down = p;
+            X[posX] = p;
+        }
+        if (X[posX] != nullptr && Y[posY] != nullptr) {
+            it = X[posX];
+            while (it->posY < posY) {
                 it = it->next;
             }
             it->next = p;
 
             it = Y[posY];
-            while (it != nullptr) {
-                it = it->next;
+            while (it->posX < posX) {
+                it = it->down;
             }
             it->next = p;
         }
