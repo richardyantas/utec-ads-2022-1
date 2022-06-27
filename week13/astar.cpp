@@ -3,15 +3,7 @@
 #include <queue>
 #include <vector>
 using namespace std;
-#define INF 2 << 29
-
-/*
-
-                    *(3)----*(4)
-                      |       |
-*(0)--*(1)----------*(2)----*(5)
-
-*/
+#define INF 2 << 28
 
 struct Node {
     int id;
@@ -41,7 +33,18 @@ int euclidean(int id1, int id2) {
     return sqrt(pow(xf - xo, 2) + pow(yf - yo, 2));
 }
 
-void dijkstraToStar() {
+int dijkstraToStar() {
+
+    /*
+
+                           *(3)---1---*(4)
+                          /  |           |
+                      4 /    1           1
+                    /        |           |
+                 /           |           |
+    *(0)-1-*(1)----3------*(2)--1-----*(5)
+
+    */
 
     nodes[0] = new Node(0, 0, 0);
     nodes[1] = new Node(1, 3, 0);
@@ -61,14 +64,17 @@ void dijkstraToStar() {
     // node 0 -> node 4
     priority_queue<pair<int, int>> q;
     vector<int> distance;
-    vector<int> processed;
-    for (int i = 0; i < N; i++)
-        distance[i] = INF;
+    vector<bool> processed;
+    distance.assign(N, INF);
+    processed.assign(N, false);
+
+    // for (int i = 0; i < N; i++)
+    //     distance[i] = INF;
 
     int start = 0;
     int obj = 4;
     distance[start] = 0;
-    q.push({0, start});
+    q.push({-distance[start], start});
 
     while (!q.empty()) {
         int a = q.top().second;
@@ -79,15 +85,29 @@ void dijkstraToStar() {
         for (auto u : adj[a]) {
             int b = u.first->id, w = u.second;
             int g = euclidean(b, obj);
-            if (distance[a] + w + g < distance[b]) {
-                distance[b] = distance[a] + w + g;
-                q.push({-distance[b], b});
+
+            if (distance[a] + w < distance[b]) {
+                distance[b] = distance[a] + w;
+                q.push({-distance[b] + g, b});
             }
+
+            // if (distance[a] + w + g < mind) {
+            // int mind = INF;
+            //     mind = distance[a] + w + g;
+            //     distance[b] = distance[a] + w;
+            //     q.push({-distance[b], b});
+            // }
         }
     }
+
+    for (int i = 0; i < distance.size(); i++) {
+        cout << distance[i] << " ";
+    }
+    cout << endl;
+    return distance[obj];
 }
 
 int main() {
-    dijkstraToStar();
+    cout << dijkstraToStar() << endl;
     return 0;
 }
